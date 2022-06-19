@@ -65,8 +65,6 @@ from django.db.models.signals import post_save
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
-from numpy import blackman
-from sqlalchemy import null
 
 class MyAccountManager(BaseUserManager):
     @property
@@ -147,4 +145,17 @@ class Company(models.Model):
     avatar = models.ImageField(upload_to='avatars/', default='avatars/default.jpg')
 
     rating = models.IntegerField(default=0)
+
+class SocialMedia(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name="social_media")
+    facebook = models.CharField(max_length=100,null=True,blank=True)
+    twitter = models.CharField(max_length=100,null=True,blank=True)
+    instagram = models.CharField(max_length=100,null=True,blank=True)
+    linkedin = models.CharField(max_length=100,null=True,blank=True)
+
+    def __str__(self):
+        return self.user.user_name
+
+    class Meta:
+        db_table = "tbl_social_media"
 
