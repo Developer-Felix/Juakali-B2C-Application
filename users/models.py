@@ -146,3 +146,16 @@ class Company(models.Model):
 
     rating = models.IntegerField(default=0)
 
+class SocialMedia(models.Model):
+    user = models.ForeignKey(Account,on_delete=models.CASCADE,related_name="social_media")
+    facebook = models.CharField(max_length=100,null=True,blank=True)
+    twitter = models.CharField(max_length=100,null=True,blank=True)
+    instagram = models.CharField(max_length=100,null=True,blank=True)
+    linkedin = models.CharField(max_length=100,null=True,blank=True)
+
+    def __str__(self):
+        return self.user.user_name
+
+    class Meta:
+        db_table = "tbl_social_media"
+
